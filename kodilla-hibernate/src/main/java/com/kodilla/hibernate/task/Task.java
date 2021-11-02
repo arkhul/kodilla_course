@@ -2,7 +2,28 @@ package com.kodilla.hibernate.task;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
+
+@NamedQueries({
+        @NamedQuery(
+                name = "Task.retrieveLongTasks",
+                query = "FROM Task WHERE duration > 10"
+        ),
+        @NamedQuery(
+                name = "Task.retrieveShortTasks",
+                query = "FROM Task WHERE duration <= 10"
+        ),
+        @NamedQuery(
+                name = "Task.retrieveTasksWithDurationLongerThan",
+                query = "FROM Task WHERE duration > :DURATION"
+        )
+})
+@NamedNativeQuery(
+        name = "Task.retrieveTasksWithEnoughTime",
+        query = "SELECT * FROM TASKS" +
+                " WHERE DATEDIFF(DATE_ADD(CREATED, INTERVAL DURATION DAY), NOW()) > 5",
+        resultClass = Task.class
+)
 
 @Entity
 @Table(name = "TASKS")
@@ -10,7 +31,7 @@ public final class Task {
 
     private int id;
     private String description;
-    private Date created;
+    private LocalDate created;
     private int duration;
     private TaskFinancialDetails taskFinancialDetails;
     private TaskList taskList;
@@ -20,7 +41,7 @@ public final class Task {
 
     public Task(String description, int duration) {
         this.description = description;
-        this.created = new Date();
+        this.created = LocalDate.now();
         this.duration = duration;
     }
 
@@ -39,7 +60,7 @@ public final class Task {
 
     @NotNull
     @Column(name="CREATED")
-    public Date getCreated() {
+    public LocalDate getCreated() {
         return created;
     }
 
@@ -76,7 +97,7 @@ public final class Task {
         this.description = description;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(LocalDate created) {
         this.created = created;
     }
 

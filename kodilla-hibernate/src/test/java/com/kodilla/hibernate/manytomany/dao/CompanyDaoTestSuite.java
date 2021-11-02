@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -13,6 +16,8 @@ class CompanyDaoTestSuite {
 
     @Autowired
     private CompanyDao companyDao;
+    @Autowired
+    private EmployeeDao employeeDao;
 
     @Test
     void testSaveManyToMany() {
@@ -45,10 +50,16 @@ class CompanyDaoTestSuite {
         companyDao.save(greyMatter);
         int greyMatterId = greyMatter.getId();
 
+        List<Employee> retrieveEmployeeWithLastNameIs = employeeDao.retrieveEmployeeWithLastNameIs("Smith");
+        List<Company> retrieveCompanyWithNameStartsFrom = companyDao.retrieveCompanyWithNameStartsFrom();
+
         //Then
         assertNotEquals(0, softwareMachineId);
         assertNotEquals(0, dataMaestersId);
         assertNotEquals(0, greyMatterId);
+
+        assertEquals(1, retrieveEmployeeWithLastNameIs.size());
+        assertEquals(1, retrieveCompanyWithNameStartsFrom.size());
 
         //CleanUp
         //try {

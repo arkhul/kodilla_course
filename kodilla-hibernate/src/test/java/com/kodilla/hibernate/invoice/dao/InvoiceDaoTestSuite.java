@@ -37,7 +37,7 @@ public class InvoiceDaoTestSuite {
         potatoe.getItems().add(item1);
         cucumber.getItems().add(item2);
 
-//      Jak odkomentujê poni¿sze, to wywala b³¹d w linii 44
+//      Jak odkomentuje ponizsze, to wywala blad w linii 44
 //        item1.setProduct(potatoe);
 //        item1.setProduct(cucumber);
 

@@ -5,6 +5,11 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQuery(
+        name = "Company.retrieveCompanyWithNameStartsFrom",
+        query = "FROM Company WHERE name LIKE 'Dat%'"
+)
+
 @Entity
 @Table(name = "COMPANIES")
 public class Company {
