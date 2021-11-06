@@ -54,4 +54,9 @@ public class Invoice {
     private void setItems(List<Item> items) {
         this.items = items;
     }
+
+    public void setItem(Item item) {
+        items.add(item);
+        item.setInvoice(this);
+    }
 }

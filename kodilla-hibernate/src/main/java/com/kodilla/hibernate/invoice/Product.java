@@ -36,7 +36,7 @@ public class Product {
     @OneToMany(
             targetEntity = Item.class,
             mappedBy = "product",
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.MERGE,
             fetch = FetchType.LAZY
     )
     public List<Item> getItems() {
@@ -53,5 +53,10 @@ public class Product {
 
     private void setItems(List<Item> items) {
         this.items = items;
+    }
+
+    public void setItem(Item item) {
+        items.add(item);
+        item.setProduct(this);
     }
 }

@@ -16,6 +16,8 @@ public class InvoiceDaoTestSuite {
 
     @Autowired
     private InvoiceDao invoiceDao;
+    @Autowired
+    private ProductDao productDao;
 
     @Test
     void testInvoiceDaoSave() {
@@ -28,20 +30,14 @@ public class InvoiceDaoTestSuite {
 
         Invoice invoice = new Invoice("fv/10/10/2051");
 
-        invoice.getItems().add(item1);
-        invoice.getItems().add(item2);
+        invoice.setItem(item1);
+        invoice.setItem(item2);
 
-        item1.setInvoice(invoice);
-        item2.setInvoice(invoice);
+        potatoe.setItem(item1);
+        cucumber.setItem(item2);
 
-        potatoe.getItems().add(item1);
-        cucumber.getItems().add(item2);
-
-//      Jak odkomentuje ponizsze, to wywala blad w linii 44
-//        item1.setProduct(potatoe);
-//        item1.setProduct(cucumber);
-
-        invoiceDao.save(invoice);
+   //     invoiceDao.save(invoice);
+        productDao.save(potatoe);
 
         //When
 
