@@ -10,6 +10,11 @@ import java.util.List;
         query = "FROM Company WHERE name LIKE 'Dat%'"
 )
 
+@NamedQuery(
+        name = "Company.retrieveCompanyNameThatIncludesCharacters",
+        query = "FROM Company WHERE name LIKE :ARG"
+)
+
 @Entity
 @Table(name = "COMPANIES")
 public class Company {
@@ -54,5 +59,13 @@ public class Company {
 
     private void setEmployees(List<Employee> employees) {
         this.employees = employees;
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

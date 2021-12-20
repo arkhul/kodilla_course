@@ -2,12 +2,18 @@ package com.kodilla.hibernate.manytomany;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.lang.annotation.Native;
 import java.util.ArrayList;
 import java.util.List;
 
 @NamedQuery(
         name = "Employee.retrieveEmployeeWithLastNameIs",
         query = "FROM Employee WHERE lastname = :LASTNAME"
+)
+
+@NamedQuery(
+        name = "Employee.retrieveEmployeeLastnameThatIncludesCharacters",
+        query = "FROM Employee WHERE lastname LIKE :ARG"
 )
 
 @Entity
@@ -71,5 +77,14 @@ public class Employee {
 
     private void setCompanies(List<Company> companies) {
         this.companies = companies;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
     }
 }
